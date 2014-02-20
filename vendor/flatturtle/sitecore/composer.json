@@ -1,0 +1,26 @@
+{
+    "name": "flatturtle/sitecore",
+    "description": "Flatturtle site core package",
+    "authors": [
+        {
+            "name": "Jens Segers",
+            "email": "jens@flatturtle.com"
+        }
+    ],
+    "require": {
+        "erusev/parsedown": "dev-master",
+        "jenssegers/model": "*",
+        "guzzle/guzzle": "~3.7"
+    },
+    "autoload": {
+        "classmap": [
+            "src/models",
+            "src/commands",
+            "src/libraries"
+        ],
+        "psr-0": {
+            "Flatturtle\\Sitecore": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
