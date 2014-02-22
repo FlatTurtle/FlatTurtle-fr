@@ -354,12 +354,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/phpseclib/phpseclib.git",
-            "reference": "8dc659d694d3e0af68688600908ff1cac9d079dc"
+            "reference": "e08c7244e2b2be89c01fc6e8fda2b8d602dda250"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/8dc659d694d3e0af68688600908ff1cac9d079dc",
-            "reference": "8dc659d694d3e0af68688600908ff1cac9d079dc",
+            "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/e08c7244e2b2be89c01fc6e8fda2b8d602dda250",
+            "reference": "e08c7244e2b2be89c01fc6e8fda2b8d602dda250",
             "shasum": ""
         },
         "require": {
@@ -373,7 +373,7 @@
             "ext-mcrypt": "Install the Mcrypt extension in order to speed up a wide variety of cryptographic operations.",
             "pear-pear/PHP_Compat": "Install PHP_Compat to get phpseclib working on PHP < 4.3.3."
         },
-        "time": "2014-02-17 17:53:54",
+        "time": "2014-02-21 18:22:09",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -519,12 +519,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "256ffce458c5b1a44b2f0ba98b5766fe9e21e3e5"
+            "reference": "8d39ffa70ac1aecd297e93d4185092f51877edb4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/256ffce458c5b1a44b2f0ba98b5766fe9e21e3e5",
-            "reference": "256ffce458c5b1a44b2f0ba98b5766fe9e21e3e5",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8d39ffa70ac1aecd297e93d4185092f51877edb4",
+            "reference": "8d39ffa70ac1aecd297e93d4185092f51877edb4",
             "shasum": ""
         },
         "require": {
@@ -565,7 +565,7 @@
             "zendframework/zend-cache": "<2.3",
             "zendframework/zend-log": "<2.3"
         },
-        "time": "2014-02-18 07:26:30",
+        "time": "2014-02-20 17:01:46",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1627,47 +1627,6 @@
         "homepage": "http://symfony.com"
     },
     {
-        "name": "erusev/parsedown",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/erusev/parsedown.git",
-            "reference": "7a20a9fb60405259e0cb06f9ca867d36111a4cbf"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/erusev/parsedown/zipball/7a20a9fb60405259e0cb06f9ca867d36111a4cbf",
-            "reference": "7a20a9fb60405259e0cb06f9ca867d36111a4cbf",
-            "shasum": ""
-        },
-        "time": "2014-02-20 11:41:18",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Parsedown": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Emanuil Rusev",
-                "email": "hello@erusev.com",
-                "homepage": "http://erusev.com"
-            }
-        ],
-        "description": "Parser for Markdown.",
-        "homepage": "http://parsedown.org",
-        "keywords": [
-            "markdown",
-            "parser"
-        ]
-    },
-    {
         "name": "flatturtle/sitecore",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -1713,18 +1672,59 @@
         }
     },
     {
+        "name": "erusev/parsedown",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/erusev/parsedown.git",
+            "reference": "a6756fd4fa733d51c0a8e1e3c6ff08e92105366a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/erusev/parsedown/zipball/a6756fd4fa733d51c0a8e1e3c6ff08e92105366a",
+            "reference": "a6756fd4fa733d51c0a8e1e3c6ff08e92105366a",
+            "shasum": ""
+        },
+        "time": "2014-02-22 10:35:54",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Parsedown": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Emanuil Rusev",
+                "email": "hello@erusev.com",
+                "homepage": "http://erusev.com"
+            }
+        ],
+        "description": "Parser for Markdown.",
+        "homepage": "http://parsedown.org",
+        "keywords": [
+            "markdown",
+            "parser"
+        ]
+    },
+    {
         "name": "laravel/framework",
         "version": "4.1.x-dev",
         "version_normalized": "4.1.9999999.9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/laravel/framework.git",
-            "reference": "a18a892c9d768464249baa1d16117fe52e0a7004"
+            "reference": "e7a0f8d93854f93d83584fea9550ce1fc60639a4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laravel/framework/zipball/a18a892c9d768464249baa1d16117fe52e0a7004",
-            "reference": "a18a892c9d768464249baa1d16117fe52e0a7004",
+            "url": "https://api.github.com/repos/laravel/framework/zipball/e7a0f8d93854f93d83584fea9550ce1fc60639a4",
+            "reference": "e7a0f8d93854f93d83584fea9550ce1fc60639a4",
             "shasum": ""
         },
         "require": {
@@ -1792,7 +1792,7 @@
         "suggest": {
             "doctrine/dbal": "Allow renaming columns and dropping SQLite columns."
         },
-        "time": "2014-02-20 15:13:32",
+        "time": "2014-02-21 04:44:00",
         "type": "library",
         "extra": {
             "branch-alias": {
