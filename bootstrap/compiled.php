@@ -240,16 +240,19 @@ class Container implements ArrayAccess
         if (is_null($constructor)) {
             return new $concrete();
         }
-        $classes = $constructor->getParameters();
-        $deps = array_merge($parameters, $this->getDependencies(array_diff_key($classes, $parameters)));
-        return $reflector->newInstanceArgs($deps);
+        $dependencies = $constructor->getParameters();
+        $parameters = $this->keyParametersByArgument($dependencies, $parameters);
+        $instances = $this->getDependencies($dependencies, $parameters);
+        return $reflector->newInstanceArgs($instances);
     }
-    protected function getDependencies($parameters)
+    protected function getDependencies($parameters, array $primitives = array())
     {
         $dependencies = array();
         foreach ($parameters as $parameter) {
             $dependency = $parameter->getClass();
-            if (is_null($dependency)) {
+            if (array_key_exists($parameter->name, $primitives)) {
+                $dependencies[] = $primitives[$parameter->name];
+            } elseif (is_null($dependency)) {
                 $dependencies[] = $this->resolveNonClass($parameter);
             } else {
                 $dependencies[] = $this->resolveClass($parameter);
@@ -277,6 +280,16 @@ class Container implements ArrayAccess
                 throw $e;
             }
         }
+    }
+    protected function keyParametersByArgument(array $dependencies, array $parameters)
+    {
+        foreach ($parameters as $key => $value) {
+            if (is_numeric($key)) {
+                unset($parameters[$key]);
+                $parameters[$dependencies[$key]->name] = $value;
+            }
+        }
+        return $parameters;
     }
     public function resolving($abstract, Closure $callback)
     {
@@ -404,7 +417,7 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class Application extends Container implements HttpKernelInterface, TerminableInterface, ResponsePreparerInterface
 {
-    const VERSION = '4.1.22';
+    const VERSION = '4.1.23';
     protected $booted = false;
     protected $bootingCallbacks = array();
     protected $bootedCallbacks = array();
@@ -781,6 +794,10 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
     {
         $this->deferredServices = $services;
     }
+    public function isDeferredService($service)
+    {
+        return isset($this->deferredServices[$service]);
+    }
     public static function requestClass($class = null)
     {
         if (!is_null($class)) {
@@ -881,6 +898,10 @@ class Request extends SymfonyRequest
     public function instance()
     {
         return $this;
+    }
+    public function method()
+    {
+        return $this->getMethod();
     }
     public function root()
     {
@@ -7625,9 +7646,9 @@ class CookieJar
     {
         return $this->make($name, $value, 2628000, $path, $domain, $secure, $httpOnly);
     }
-    public function forget($name)
+    public function forget($name, $path = null, $domain = null)
     {
-        return $this->make($name, null, -2628000);
+        return $this->make($name, null, -2628000, $path, $domain);
     }
     public function hasQueued($key)
     {
@@ -9045,7 +9066,7 @@ class Environment
         if (isset($resolver)) {
             $this->engines->register($engine, $resolver);
         }
-        unset($this->extensions[$engine]);
+        unset($this->extensions[$extension]);
         $this->extensions = array_merge(array($extension => $engine), $this->extensions);
     }
     public function getExtensions()
