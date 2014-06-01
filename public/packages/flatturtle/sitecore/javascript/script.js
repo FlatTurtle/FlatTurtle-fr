@@ -16,6 +16,20 @@ $(document).ready(function(){
 
     /*
     |--------------------------------------------------------------------------
+    | Collapsed
+    |--------------------------------------------------------------------------
+    */
+    $('.expand').css('cursor', 'pointer');
+    $('.collapsed').hide();
+    $('.expand').click(function()
+    {
+        $(this).next('.collapsed').slideDown('slow');
+        $(this).remove();
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Reservations
     |--------------------------------------------------------------------------
     */
@@ -31,7 +45,18 @@ $(document).ready(function(){
         // Datepicker
         $('.date').datepicker({
             dateFormat: 'yy-mm-dd',
-            firstDay: 1
+            firstDay: 1,
+            minDate: 0
+        });
+
+        // Timepicker
+        $('.time').timepicker({
+            timeFormat: ' HH:mm',
+            stepMinute: 15,
+            showButtonPanel: false,
+            timeOnly: true,
+            hourMin: 1,
+            hourMax: 23
         });
 
         // Re-highlight "done" parts

@@ -1,6 +1,5 @@
 <?php
-require_once('vendor/autoload.php');
-require_once('tests/stubs/ModelStub.php');
+require_once 'tests/stubs/ModelStub.php';
 
 use Jenssegers\Model\Model;
 
@@ -10,10 +9,17 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 	{
 		$model = new ModelStub;
 		$model->name = 'foo';
+
 		$this->assertEquals('foo', $model->name);
 		$this->assertTrue(isset($model->name));
 		unset($model->name);
+		$this->assertEquals(null, $model->name);
 		$this->assertFalse(isset($model->name));
+
+		$model['name'] = 'foo';
+		$this->assertTrue(isset($model['name']));
+		unset($model['name']);
+		$this->assertFalse(isset($model['name']));
 	}
 
 	public function testConstructor()
@@ -26,6 +32,7 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 	{
 		$model = new ModelStub;
 		$instance = $model->newInstance(array('name' => 'john'));
+
 		$this->assertInstanceOf('ModelStub', $instance);
 		$this->assertEquals('john', $instance->name);
 	}
@@ -33,9 +40,22 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 	public function testHidden()
 	{
 		$model = new ModelStub;
-		$model->secret = 'secret';
+		$model->password = 'secret';
+
 		$attributes = $model->attributesToArray();
-		$this->assertFalse(isset($attributes['secret']));
+		$this->assertFalse(isset($attributes['password']));
+		$this->assertEquals(array('password'), $model->getHidden());
+	}
+
+	public function testVisible()
+	{
+		$model = new ModelStub;
+		$model->setVisible(array('name'));
+		$model->name = 'John Doe';
+		$model->city = 'Paris';
+
+		$attributes = $model->attributesToArray();
+		$this->assertEquals(array('name' => 'John Doe'), $attributes);
 	}
 
 	public function testToArray()
@@ -67,7 +87,7 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testMutator()
-	{	
+	{
 		$model = new ModelStub;
 		$model->list_items = array('name' => 'john');
 		$this->assertEquals(array('name' => 'john'), $model->list_items);
@@ -89,17 +109,16 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 		$model->list_items = array(1, 2, 3);
 		$array = $model->toArray();
 
-		$this->assertEquals(array(1, 2, 3), $array['list_items']);	
+		$this->assertEquals(array(1, 2, 3), $array['list_items']);
 	}
 
 	public function testReplicate()
 	{
 		$model = new ModelStub;
-		$model->name = 'john';
-		$model->foo = 'bar';
+		$model->name = 'John Doe';
+		$model->city = 'Paris';
 
 		$clone = $model->replicate();
-
 		$this->assertEquals($model, $clone);
 		$this->assertEquals($model->name, $clone->name);
 	}
@@ -115,6 +134,16 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 		$array = $model->toArray();
 		$this->assertTrue(isset($array['test']));
 		$this->assertEquals('test', $array['test']);
+	}
+
+	public function testArrayAccess()
+	{
+		$model = new ModelStub;
+		$model->name = 'John Doen';
+		$model['city'] = 'Paris';
+
+		$this->assertEquals($model->name, $model['name']);
+		$this->assertEquals($model->city, $model['city']);
 	}
 
 }
